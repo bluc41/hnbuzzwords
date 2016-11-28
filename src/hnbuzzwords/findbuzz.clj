@@ -20,20 +20,22 @@
 
 
 (defn testing []
-    (doseq [page (scraper/hn-all-headlines)]
-        (doseq [headline page]
-            (println headline))))
+    (doseq [entries @posts]
+        (println entries)))
+
+(defn printSorted []
+    (doseq [entry (sort-by last @posts)]
+        (println entry)))
 
 (defn addtoDict [headline weight]
     (doseq [word (str/split headline #" ")]
         (if (contains? @posts (keyword word))
-            (swap! posts update-in [(keyword word)] + weight); bug
+            (swap! posts update-in [(keyword word)] + weight)
             (swap! posts assoc (keyword word) weight))))
 
 ;not very functional -- clean this up
 (defn processlines []
     (let [weight (atom 500)]
-        (doseq [page (scraper/hn-all-headlines)]
-            (doseq [headline page]
-                (addtoDict headline weight)
-                (swap! weight dec)))))
+        (doseq [headline (scraper/hn-all-headlines)]
+            (addtoDict headline @weight)
+            (swap! weight dec))))

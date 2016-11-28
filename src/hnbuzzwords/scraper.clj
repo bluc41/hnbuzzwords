@@ -20,7 +20,7 @@
      (map #(str *hn-url* "/news?p=" %) (range 1 17)))
 
 (defn hn-all-headlines []
-    (map #(hn-headlines %) (list-of-URLS)))
+    (flatten (map #(hn-headlines %) (list-of-URLS))))
 
 (defn hn-headlines-and-points []
     "maps nodes selected using quasi css selectors to string"
