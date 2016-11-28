@@ -20,18 +20,18 @@
 
 
 (defn testing []
-    (println @posts))
+    (doseq [keyval @posts]
+        (println keyval)))
 
-(defn addtoDict [headline]
-    (loop [i 30]
-        (when (> i 0)
-            (doseq [word (str/split headline #" ")]
-                (if (contains? @posts (keyword word))
-                    (swap! posts update-in [(keyword word)] + i)
-                    (swap! posts assoc (keyword word) i))))
-        (recur (dec i))))
+(defn addtoDict [headline weight]
+    (doseq [word (str/split headline #" ")]
+        (if (contains? @posts (keyword word))
+            (swap! posts update-in [(keyword word)] + weight)
+            (swap! posts assoc (keyword word) weight))))
 
 
 (defn processlines []
-    (doseq [headline (scraper/hn-headlines)]
-        (addtoDict headline)))
+    (let [weight (atom 30)]
+        (doseq [headline (scraper/hn-headlines)]
+            (addtoDict headline @weight)
+            (swap! weight dec))))
