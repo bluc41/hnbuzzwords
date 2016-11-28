@@ -8,18 +8,23 @@
     (html/html-resource (java.net.URL. url)));Note trailing dot on java.net.URL.
     ;the trailing dot is shorthand for (new java.net.URL url)
 
-(defn hn-headlines []
-    (map html/text (html/select (fetch-url *hn-url*)
+(defn hn-headlines [url]
+    (map html/text (html/select (fetch-url url)
                     [:.storylink])))
 
 (defn hn-points []
     (map html/text (html/select (fetch-url *hn-url*)
                     [:.score])))
 
+(defn list-of-URLS []
+     (map #(str *hn-url* "/news?p=" %) (range 1 17)))
+
+(defn hn-all-headlines []
+    (map #(hn-headlines %) (list-of-URLS)))
+
 (defn hn-headlines-and-points []
     "maps nodes selected using quasi css selectors to string"
     (map html/text (html/select (fetch-url *hn-url*)
                     #{[:.storylink] [:span.score]})))
 
-;TODO (exapnd to 10 pages)
 ;BUG: NEW POSTS DONT SHOW POINTS

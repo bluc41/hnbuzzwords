@@ -20,18 +20,20 @@
 
 
 (defn testing []
-    (doseq [keyval @posts]
-        (println keyval)))
+    (doseq [page (scraper/hn-all-headlines)]
+        (doseq [headline page]
+            (println headline))))
 
 (defn addtoDict [headline weight]
     (doseq [word (str/split headline #" ")]
         (if (contains? @posts (keyword word))
-            (swap! posts update-in [(keyword word)] + weight)
+            (swap! posts update-in [(keyword word)] + weight); bug
             (swap! posts assoc (keyword word) weight))))
 
-
+;not very functional -- clean this up
 (defn processlines []
-    (let [weight (atom 30)]
-        (doseq [headline (scraper/hn-headlines)]
-            (addtoDict headline @weight)
-            (swap! weight dec))))
+    (let [weight (atom 500)]
+        (doseq [page (scraper/hn-all-headlines)]
+            (doseq [headline page]
+                (addtoDict headline weight)
+                (swap! weight dec)))))
