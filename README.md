@@ -1,32 +1,17 @@
 # hnbuzzwords
 
-FIXME: description
+This app finds the "buzzwords" and the "hottest" URLs on Hacker News.
 
 ## Installation
 
-Download from http://example.com/FIXME.
+    git clone https://github.com/bluc41/hnbuzzwords.git
 
 ## Usage
 
-FIXME: explanation
+After installing Leiningen
 
-    $ java -jar hnbuzzwords-0.1.0-standalone.jar [args]
-
-## Options
-
-FIXME: listing of options this app accepts.
-
-## Examples
-
-...
-
-### Bugs
-
-...
-
-### Any Other Sections
-### That You Think
-### Might be Useful
+    lein deps
+    lein run
 
 ## License
 
