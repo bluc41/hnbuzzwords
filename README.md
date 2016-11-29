@@ -1,6 +1,7 @@
 # hnbuzzwords
 
-This app finds the "buzzwords" and the "hottest" URLs on Hacker News.
+This app finds the "buzzwords" in headlines and the most popular URLs on Hacker News.
+Ratings are based on the amount of traffic going through a post, not just frequency.
 
 ## Installation
 
