@@ -6,5 +6,9 @@
 (defn -main
   "I don't do a whole lot ... yet."
   [& args]
-  (findbuzz/processlines)
-  (findbuzz/printSorted))
+  (println "These are the sorted words in headlines")
+  (findbuzz/processHeadlines)
+  (findbuzz/printSorted findbuzz/posts)
+  (println "These are sorted urls")
+  (findbuzz/processURLs)
+  (findbuzz/printSorted findbuzz/urls))
